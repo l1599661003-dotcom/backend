@@ -53,7 +53,7 @@ async function seedHomeData() {
         sales: 320,
         status: ProductStatus.ON_SALE,
         isHot: true,
-        isRecommend: false,
+        isRecommended: false,
       },
       {
         storeId: stores[1].id,
@@ -67,7 +67,7 @@ async function seedHomeData() {
         sales: 156,
         status: ProductStatus.ON_SALE,
         isHot: true,
-        isRecommend: false,
+        isRecommended: false,
       },
       {
         storeId: stores[1].id,
@@ -81,7 +81,7 @@ async function seedHomeData() {
         sales: 543,
         status: ProductStatus.ON_SALE,
         isHot: true,
-        isRecommend: false,
+        isRecommended: false,
       },
       {
         storeId: stores[0].id,
@@ -95,7 +95,7 @@ async function seedHomeData() {
         sales: 876,
         status: ProductStatus.ON_SALE,
         isHot: true,
-        isRecommend: false,
+        isRecommended: false,
       },
     ]);
 
@@ -115,7 +115,7 @@ async function seedHomeData() {
         sales: 1234,
         status: ProductStatus.ON_SALE,
         isHot: false,
-        isRecommend: true,
+        isRecommended: true,
       },
       {
         storeId: stores[1].id,
@@ -129,7 +129,7 @@ async function seedHomeData() {
         sales: 987,
         status: ProductStatus.ON_SALE,
         isHot: false,
-        isRecommend: true,
+        isRecommended: true,
       },
       {
         storeId: stores[0].id,
@@ -143,7 +143,7 @@ async function seedHomeData() {
         sales: 234,
         status: ProductStatus.ON_SALE,
         isHot: false,
-        isRecommend: true,
+        isRecommended: true,
       },
       {
         storeId: stores[1].id,
@@ -157,7 +157,7 @@ async function seedHomeData() {
         sales: 456,
         status: ProductStatus.ON_SALE,
         isHot: false,
-        isRecommend: true,
+        isRecommended: true,
       },
       {
         storeId: stores[0].id,
@@ -171,7 +171,7 @@ async function seedHomeData() {
         sales: 123,
         status: ProductStatus.ON_SALE,
         isHot: false,
-        isRecommend: true,
+        isRecommended: true,
       },
       {
         storeId: stores[1].id,
@@ -185,7 +185,7 @@ async function seedHomeData() {
         sales: 345,
         status: ProductStatus.ON_SALE,
         isHot: false,
-        isRecommend: true,
+        isRecommended: true,
       },
     ]);
 
