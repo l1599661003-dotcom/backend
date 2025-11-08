@@ -44,6 +44,17 @@ export const verifyToken = (token: string): JwtPayload => {
 
 // 认证中间件（测试环境默认不需要鉴权）
 export const authenticate = async (ctx: Context, next: Next): Promise<void> => {
+  // 🔧 优先检查认证开关 - 如果禁用认证，直接放行
+  if (process.env.DISABLE_AUTH === 'true') {
+    console.log('🚫 认证已禁用 (DISABLE_AUTH=true)，使用默认测试用户');
+    ctx.state.user = {
+      userId: 1,
+      openid: 'test_user_001',
+    };
+    await next();
+    return;
+  }
+
   // 开发环境默认使用测试用户，跳过鉴权
   if (process.env.NODE_ENV !== 'production') {
     // 默认使用管理员用户
