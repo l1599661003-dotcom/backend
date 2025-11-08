@@ -39,9 +39,9 @@ class MerchantService {
       description?: string;
     }
   ): Promise<MerchantApplication> {
-    // 检查用户是否已经是商家
-    const existingStore = await Store.findOne({ where: { ownerId: userId } });
-    if (existingStore) {
+    // 检查用户是否已经是商家（通过 MerchantInfo 表）
+    const existingMerchant = await MerchantInfo.findOne({ where: { userId } });
+    if (existingMerchant) {
       throw new Error('您已经是商家，无需重复申请');
     }
 
@@ -144,8 +144,8 @@ class MerchantService {
     const store = await Store.create(
       {
         name: application.storeName,
-        ownerId: application.userId,
-        logoUrl: 'https://via.placeholder.com/200/cccccc/ffffff?text=Store',
+        logoUrl: 'https://img1.baidu.com/it/u=1785843015,1644492180&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+        coverImage: 'https://img2.baidu.com/it/u=3559997005,3402051545&fm=253&fmt=auto&app=120&f=JPEG?w=1200&h=675',
         address: application.storeAddress,
         phone: application.contactPhone,
         rating: 5.0,

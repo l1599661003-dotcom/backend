@@ -11,14 +11,16 @@ export enum StoreStatus {
 export interface StoreAttributes {
   id: number;
   name: string;
-  ownerId: number;
   logoUrl?: string;
+  coverImage?: string;
   address?: string;
   latitude?: number;
   longitude?: number;
   phone?: string;
   rating: number;
   openHours?: string;
+  businessStatus?: string;
+  monthlySales?: number;
   status: StoreStatus;
   createdAt?: Date;
   updatedAt?: Date;
@@ -29,14 +31,16 @@ interface StoreCreationAttributes extends Optional<StoreAttributes, 'id' | 'rati
 class Store extends Model<StoreAttributes, StoreCreationAttributes> implements StoreAttributes {
   public id!: number;
   public name!: string;
-  public ownerId!: number;
   public logoUrl?: string;
+  public coverImage?: string;
   public address?: string;
   public latitude?: number;
   public longitude?: number;
   public phone?: string;
   public rating!: number;
   public openHours?: string;
+  public businessStatus?: string;
+  public monthlySales?: number;
   public status!: StoreStatus;
 
   public readonly createdAt!: Date;
@@ -54,15 +58,15 @@ Store.init(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    ownerId: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      field: 'owner_id',
-    },
     logoUrl: {
       type: DataTypes.STRING(500),
       allowNull: true,
       field: 'logo_url',
+    },
+    coverImage: {
+      type: DataTypes.STRING(500),
+      allowNull: true,
+      field: 'cover_image',
     },
     address: {
       type: DataTypes.STRING(200),
@@ -89,6 +93,18 @@ Store.init(
       type: DataTypes.STRING(100),
       allowNull: true,
       field: 'open_hours',
+    },
+    businessStatus: {
+      type: DataTypes.ENUM('open', 'closed', 'busy'),
+      allowNull: true,
+      defaultValue: 'open',
+      field: 'business_status',
+    },
+    monthlySales: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: true,
+      defaultValue: 0,
+      field: 'monthly_sales',
     },
     status: {
       type: DataTypes.ENUM(...Object.values(StoreStatus)),
