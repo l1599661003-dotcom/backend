@@ -10,6 +10,7 @@ import messageRouter from './message';
 import bannerRouter from './banner';
 import couponRouter from './coupon';
 import addressRouter from './address';
+import merchantRouter from './merchant';
 
 /**
  * 路由索引文件
@@ -51,5 +52,8 @@ router.use(couponRouter.allowedMethods());
 
 router.use(addressRouter.routes());
 router.use(addressRouter.allowedMethods());
+
+router.use('/api/merchant', merchantRouter.routes());
+router.use(merchantRouter.allowedMethods());
 
 export default router;

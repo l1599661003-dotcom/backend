@@ -117,6 +117,24 @@ class UserController {
 
     ctx.success(result, '获取用户中心数据成功');
   }
+
+  /**
+   * POST /api/auth/delete-account
+   * 注销账号（需要认证）
+   */
+  async deleteAccount(ctx: Context) {
+    const userId = ctx.state.user?.userId;
+
+    if (!userId) {
+      throw new AppError('未登录', 401);
+    }
+
+    const { reason } = ctx.request.body as any;
+
+    await UserService.deleteAccount(userId, reason);
+
+    ctx.success(null, '账号注销成功');
+  }
 }
 
 export default new UserController();

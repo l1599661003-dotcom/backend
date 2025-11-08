@@ -201,6 +201,69 @@ class UserService {
       createdAt: user.createdAt,
     };
   }
+
+  /**
+   * 注销账号
+   * 根据微信小程序3.4.1条款要求，用户注销账号后应删除相关数据
+   */
+  async deleteAccount(userId: number, reason?: string) {
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      throw new AppError('用户不存在', 404);
+    }
+
+    // TODO: 检查用户是否有未完成的订单
+    // 可以添加更多的注销前检查逻辑
+
+    // 记录注销日志（用于审计和改进服务）
+    console.log('用户注销账号:', {
+      userId: user.id,
+      nickname: user.nickname,
+      reason: reason || '未提供原因',
+      deletedAt: new Date(),
+    });
+
+    // 删除用户相关数据
+    // 1. 删除用户统计数据
+    await UserStats.destroy({ where: { userId } });
+
+    // 2. 删除用户收货地址
+    // await Address.destroy({ where: { userId } });
+
+    // 3. 清空用户收藏
+    // await UserCollect.destroy({ where: { userId } });
+
+    // 4. 清空用户购物车
+    // await Cart.destroy({ where: { userId } });
+
+    // 5. 清空用户优惠券
+    // await UserCoupon.destroy({ where: { userId } });
+
+    // 6. 删除用户社交关系
+    // await UserFollow.destroy({ where: { userId } });
+    // await UserFollow.destroy({ where: { followingId: userId } });
+
+    // 7. 删除用户动态和评论
+    // await Post.destroy({ where: { userId } });
+    // await Comment.destroy({ where: { userId } });
+
+    // 8. 匿名化或删除用户信息（保留订单记录3年，符合法律要求）
+    // 将用户信息脱敏处理，而不是完全删除，以满足订单保留要求
+    await user.update({
+      openid: `deleted_${user.id}_${Date.now()}`,
+      unionid: undefined,
+      nickname: '已注销用户',
+      avatar: '',
+      phone: undefined,
+      totalPoints: 0,
+    });
+
+    // 也可以选择软删除（如果使用了paranoid选项）
+    // await user.destroy();
+
+    return true;
+  }
 }
 
 export default new UserService();

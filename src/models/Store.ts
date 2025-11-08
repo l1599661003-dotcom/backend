@@ -11,6 +11,7 @@ export enum StoreStatus {
 export interface StoreAttributes {
   id: number;
   name: string;
+  ownerId: number;
   logoUrl?: string;
   address?: string;
   latitude?: number;
@@ -28,6 +29,7 @@ interface StoreCreationAttributes extends Optional<StoreAttributes, 'id' | 'rati
 class Store extends Model<StoreAttributes, StoreCreationAttributes> implements StoreAttributes {
   public id!: number;
   public name!: string;
+  public ownerId!: number;
   public logoUrl?: string;
   public address?: string;
   public latitude?: number;
@@ -51,6 +53,11 @@ Store.init(
     name: {
       type: DataTypes.STRING(100),
       allowNull: false,
+    },
+    ownerId: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      field: 'owner_id',
     },
     logoUrl: {
       type: DataTypes.STRING(500),

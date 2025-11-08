@@ -19,6 +19,8 @@ import Message from './Message';
 import Banner from './Banner';
 import Coupon from './Coupon';
 import UserCoupon from './UserCoupon';
+import MerchantApplication from './MerchantApplication';
+import MerchantInfo from './MerchantInfo';
 
 // 建立模型关联关系
 
@@ -110,6 +112,18 @@ UserCoupon.belongsTo(Coupon, { foreignKey: 'couponId', as: 'coupon' });
 Order.hasMany(UserCoupon, { foreignKey: 'orderId', as: 'coupons' });
 UserCoupon.belongsTo(Order, { foreignKey: 'orderId', as: 'order' });
 
+// User <-> MerchantApplication: 一对多
+User.hasMany(MerchantApplication, { foreignKey: 'userId', as: 'merchantApplications' });
+MerchantApplication.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
+// Store <-> MerchantInfo: 一对一
+Store.hasOne(MerchantInfo, { foreignKey: 'storeId', as: 'merchantInfo' });
+MerchantInfo.belongsTo(Store, { foreignKey: 'storeId', as: 'store' });
+
+// User <-> MerchantInfo: 一对一
+User.hasOne(MerchantInfo, { foreignKey: 'userId', as: 'merchantInfo' });
+MerchantInfo.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
 // 导出所有模型
 export {
   User,
@@ -128,6 +142,8 @@ export {
   Banner,
   Coupon,
   UserCoupon,
+  MerchantApplication,
+  MerchantInfo,
 };
 
 // 默认导出对象
@@ -148,4 +164,6 @@ export default {
   Banner,
   Coupon,
   UserCoupon,
+  MerchantApplication,
+  MerchantInfo,
 };

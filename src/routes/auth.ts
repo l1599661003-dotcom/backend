@@ -28,4 +28,7 @@ router.get('/points', authenticate, UserController.getUserPoints);
 // 获取用户中心数据（需要认证）
 router.get('/profile', authenticate, UserController.getUserProfile);
 
+// 注销账号（需要认证）
+router.post('/delete-account', authenticate, UserController.deleteAccount);
+
 export default router;
